@@ -20,8 +20,11 @@ struct UserFetchingClient {
     /// The call to get random user data is made asynchronously using the async keyword, then accessed using the await keyword to ensure that data is present before continuing.
     
     
-    static func getUsers() async throws -> String {
+    static func getUsers() async throws -> [User] {
         async let (data, _) = URLSession.shared.data(from: url)
-        return try await String(data: data, encoding: .utf8)!
+        let response = try await JSONDecoder().decode(Response.self, from: data)
+        return response.users
     }
+    
+    /// The getUsers() function reaches out to the Random User Generator API, retrieves the data as JSON, and creates an array of users from the JSON data
 }

@@ -11,7 +11,7 @@ import Foundation
 class UserData: ObservableObject {
     /// Since the userData is declared with the StateObject modifier, let’s update the UserData.users with the Published modifier to update any subscribers with the newly published data. Provided the Published modifier, UserData will need to conform to ObservableObject to update subscribers.
     
-   @Published var users: String = ""
+   @Published var users: [User] = []
     
     init() {
         Task {
