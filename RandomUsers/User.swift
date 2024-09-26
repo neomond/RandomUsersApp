@@ -37,11 +37,13 @@ struct Response: Decodable {
 struct User: Decodable, Identifiable {
   let id: String
   let name: Name
+  let picture: Picture
     
     ///create a custom initializer to decode the JSON using the new enumerations.
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decode(Name.self, forKey: .name)
+        picture = try values.decode(Picture.self, forKey: .picture) /// You create the picture coding key and used the Decodable intializer to decode the JSON "picture" key-values into a Picture object.
         let loginInfo = try values.nestedContainer(keyedBy: LoginInfoCodingKeys.self,
                                                      forKey: .login)
         id = try loginInfo.decode(String.self, forKey: .uuid)
@@ -54,6 +56,7 @@ struct User: Decodable, Identifiable {
     enum CodingKeys: String, CodingKey {
         case name
         case login
+        case picture
     }
     
     enum LoginInfoCodingKeys: String, CodingKey {
@@ -65,4 +68,10 @@ struct Name: Decodable {
   let title: String
   let first: String
   let last: String
+}
+
+struct Picture: Decodable {
+    let large: String
+    let medium: String
+    let thumbnail: String
 }

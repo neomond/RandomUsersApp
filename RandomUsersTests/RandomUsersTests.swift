@@ -6,18 +6,22 @@
 //
 
 import XCTest
-@testable import RandomUsers
+@testable import RandomUsers  /// Annotate each test case with the @testable attribute to make your app's classes and functions accessible for testing.
 
 final class RandomUsersTests: XCTestCase {
     
     func testUserModel() throws {
+        // Arrange
         let jsonData = getTestJSONData()
         
         do {
+            // Act
             _ = try JSONDecoder().decode(Response.self, from: jsonData)
         } catch {
            XCTFail("Failed to decode JSON into the model: \(error)")
         }
+        
+        // Assert ....
     }
     
 
